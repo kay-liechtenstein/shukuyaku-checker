@@ -55,8 +55,6 @@ document.getElementById('judge-button').addEventListener('click', () => {
 
     let array = original_indices(S, T);
 
-    console.log("Indices array:", array);
-
     let problems = [];
     for (let i = 0; i < T.length; i++) {
         if (array[i] == -1) {
