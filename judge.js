@@ -41,6 +41,16 @@ document.getElementById('judge-button').addEventListener('click', () => {
     let S = document.getElementById('original').value;
     let T = document.getElementById('abridged').value;
 
+    if (S.length === 0 || T.length === 0) {
+        Swal.fire({
+            title: '',
+            html: "何でもいいので入力してください...",
+            icon: 'warning',
+            confirmButtonText: 'OK'
+        });
+        return;
+    }
+
     let array = original_indices(S, T);
 
     let problems = [];
