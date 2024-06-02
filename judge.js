@@ -1,4 +1,6 @@
-const judge = (S, T) => {
+let x = [];
+
+const original_indices = (S, T) => {
     let Ls = S.length;
     let Lt = T.length;
     let ind = [];
@@ -13,30 +15,42 @@ const judge = (S, T) => {
         if (T[i] == S[track]) {
             ind[i] = track;
             track++;
-        } else {
+        } 
+        else {
             let fixed = track;
             while (track < Ls) {
                 if (T[i] == S[track]) {
                     ind[i] = track;
                     track++;
                     break;
-                } else {
+                } 
+                else {
                     track++;
                 }
             }
             if (track == Ls) {
+            	x.push(track);
                 track = fixed;
             }
         }
     }
-    return !ind.includes(-1);
+    return ind;
 }
 
 document.getElementById('judge-button').addEventListener('click', () => {
     let S = document.getElementById('original').value;
     let T = document.getElementById('abridged').value;
 
-    if (judge(S, T)) {
+    let array = original_indices(S, T);
+
+    let problems = [];
+    for (let i = 0; i < T.length; i++) {
+    	if (array[i] == -1) {
+    		problems.push(i + 1);
+    	}
+    }
+
+    if (!array.includes(-1)) {
         Swal.fire({
             title: '',
             text: '正しく縮約されています。',
@@ -44,9 +58,13 @@ document.getElementById('judge-button').addEventListener('click', () => {
             confirmButtonText: 'OK'
         });
     } else {
+    	let message = '縮約のルールが守られていません。<br> 次の文字は、縮約前のテキストには存在しません：<br><br>';
+        for (let i = 0; i < problems.length; i++) {
+        	message += problems[i].toString() + '番目の文字: ' + T[problems[i] - 1] + '<br>';
+        }
         Swal.fire({
             title: '',
-            text: '縮約のルールが守られていません。修正してください。',
+            html: message,
             icon: 'error',
             confirmButtonText: 'OK'
         });
