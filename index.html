@@ -55,6 +55,13 @@
         .swal-wide {
             width: 60% !important;
         }
+
+        .shrink-rate {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
@@ -64,6 +71,7 @@
         <textarea id="original" placeholder="縮約前のテキスト"></textarea>
         <textarea id="abridged" placeholder="縮約後のテキスト"></textarea>
         <button id="judge-button">判定</button>
+        <div id="shrink-rate" class="shrink-rate">現在の縮約率: 100%</div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="judge.js"></script>

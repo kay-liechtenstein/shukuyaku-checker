@@ -1,3 +1,5 @@
+let x = [];
+
 const original_indices = (S, T) => {
     let Ls = S.length;
     let Lt = T.length;
@@ -13,20 +15,19 @@ const original_indices = (S, T) => {
         if (T[i] == S[track]) {
             ind[i] = track;
             track++;
-        } 
-        else {
+        } else {
             let fixed = track;
             while (track < Ls) {
                 if (T[i] == S[track]) {
                     ind[i] = track;
                     track++;
                     break;
-                } 
-                else {
+                } else {
                     track++;
                 }
             }
             if (track == Ls) {
+                x.push(track);
                 track = fixed;
             }
         }
@@ -37,6 +38,9 @@ const original_indices = (S, T) => {
 document.getElementById('judge-button').addEventListener('click', () => {
     let S = document.getElementById('original').value;
     let T = document.getElementById('abridged').value;
+
+    console.log("Original text:", S);
+    console.log("Abridged text:", T);
 
     if (S.length === 0 || T.length === 0) {
         Swal.fire({
@@ -51,12 +55,19 @@ document.getElementById('judge-button').addEventListener('click', () => {
 
     let array = original_indices(S, T);
 
+    console.log("Indices array:", array);
+
     let problems = [];
     for (let i = 0; i < T.length; i++) {
         if (array[i] == -1) {
             problems.push(i + 1);
         }
     }
+
+    console.log("Problems:", problems);
+
+    let shrinkRate = Math.floor(100 * T.length / S.length);
+    document.getElementById('shrink-rate').textContent = `現在の縮約率: ${shrinkRate}%`;
 
     if (!array.includes(-1)) {
         Swal.fire({
