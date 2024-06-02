@@ -27,7 +27,6 @@ const original_indices = (S, T) => {
                 }
             }
             if (track == Ls) {
-                x.push(track);
                 track = fixed;
             }
         }
