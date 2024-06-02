@@ -1,5 +1,3 @@
-let x = [];
-
 const original_indices = (S, T) => {
     let Ls = S.length;
     let Lt = T.length;
@@ -29,7 +27,7 @@ const original_indices = (S, T) => {
                 }
             }
             if (track == Ls) {
-            	x.push(track);
+                x.push(track);
                 track = fixed;
             }
         }
@@ -46,7 +44,8 @@ document.getElementById('judge-button').addEventListener('click', () => {
             title: '',
             html: "何でもいいので入力してください...",
             icon: 'warning',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'OK',
+            customClass: 'swal-wide'
         });
         return;
     }
@@ -55,9 +54,9 @@ document.getElementById('judge-button').addEventListener('click', () => {
 
     let problems = [];
     for (let i = 0; i < T.length; i++) {
-    	if (array[i] == -1) {
-    		problems.push(i + 1);
-    	}
+        if (array[i] == -1) {
+            problems.push(i + 1);
+        }
     }
 
     if (!array.includes(-1)) {
@@ -65,18 +64,20 @@ document.getElementById('judge-button').addEventListener('click', () => {
             title: '',
             text: '正しく縮約されています。',
             icon: 'success',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'OK',
+            customClass: 'swal-wide'
         });
     } else {
-    	let message = '縮約のルールが守られていません。<br> 次の文字は、縮約前のテキストには存在しません：<br><br>';
+        let message = '縮約のルールが守られていません。<br>次の文字には、対応する元テキストの文字が存在しません：<br><br>';
         for (let i = 0; i < problems.length; i++) {
-        	message += problems[i].toString() + '番目の文字: ' + T[problems[i] - 1] + '<br>';
+            message += problems[i].toString() + '番目の文字: ' + T[problems[i] - 1] + '<br>';
         }
         Swal.fire({
             title: '',
             html: message,
             icon: 'error',
-            confirmButtonText: 'OK'
+            confirmButtonText: 'OK',
+            customClass: 'swal-wide'
         });
     }
 });
