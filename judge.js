@@ -72,7 +72,7 @@ document.getElementById('judge-button').addEventListener('click', () => {
     if (!array.includes(-1)) {
         Swal.fire({
             title: '',
-            text: '正しく縮約されています。',
+            text: '正しく縮約されています...!',
             icon: 'success',
             confirmButtonText: 'OK',
             customClass: 'swal-wide'
