@@ -1,5 +1,3 @@
-let x = [];
-
 const original_indices = (S, T) => {
     let Ls = S.length;
     let Lt = T.length;
@@ -9,25 +7,27 @@ const original_indices = (S, T) => {
     }
     let track = 0;
     for (let i = 0; i < Lt; i++) {
-        if (track == Ls) {
+        if (track === Ls) {
             break;
         }
-        if (T[i] == S[track]) {
+        if (T[i] === S[track]) {
             ind[i] = track;
             track++;
         } else {
             let fixed = track;
             while (track < Ls) {
-                if (T[i] == S[track]) {
+                flag = false;
+                if (T[i] === S[track]) {
                     ind[i] = track;
                     track++;
+                    flag = true;
                     break;
-                } else {
+                }
+                else {
                     track++;
                 }
             }
-            if (track == Ls) {
-                x.push(track);
+            if (track === Ls && flag === false) {
                 track = fixed;
             }
         }
