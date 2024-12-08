@@ -53,6 +53,17 @@ document.getElementById('judge-button').addEventListener('click', () => {
         return;
     }
 
+    if (S.length > 5000 || T.length > 5000) {
+        Swal.fire({
+            title: '',
+            html: "文字数が多すぎます... せいぜい5000文字以下にしてください。",
+            icon: 'warning',
+            confirmButtonText: 'OK',
+            customClass: 'swal-wide'
+        });
+        return;
+    }
+
     let array = original_indices(S, T);
 
     let problems = [];
@@ -89,3 +100,9 @@ document.getElementById('judge-button').addEventListener('click', () => {
         });
     }
 });
+
+document.body.insertAdjacentHTML('beforeend', `
+    <div style="position: fixed; bottom: 10px; width: 100%; text-align: center; font-size: 14px; color: grey;">
+        正しいにもかかわらず複数の文字が不適切と判定される場合があります。最初の文字から順に削除・変更するなどして修正してください。
+    </div>
+`);
