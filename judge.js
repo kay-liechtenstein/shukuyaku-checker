@@ -75,9 +75,6 @@ document.getElementById('judge-button').addEventListener('click', () => {
 
     console.log("Problems:", problems);
 
-    let shrinkRate = Math.floor(100 * T.length / S.length);
-    document.getElementById('shrink-rate').textContent = `現在の縮約率: ${shrinkRate}%`;
-
     if (!array.includes(-1)) {
         Swal.fire({
             title: '',
@@ -101,8 +98,34 @@ document.getElementById('judge-button').addEventListener('click', () => {
     }
 });
 
-document.body.insertAdjacentHTML('beforeend', `
-    <div style="position: fixed; bottom: 10px; width: 100%; text-align: center; font-size: 14px; color: grey;">
-        正しいにもかかわらず複数の文字が不適切と判定される場合があります。最初の文字から順に削除・変更するなどして修正してください。
-    </div>
-`);
+// Real-time shrink rate calculation
+function updateShrinkRate() {
+    const originalText = document.getElementById('original').value;
+    const abridgedText = document.getElementById('abridged').value;
+    const shrinkRateElement = document.getElementById('shrink-rate');
+    
+    if (originalText.length === 0) {
+        shrinkRateElement.textContent = '現在の縮約率: 0%';
+        shrinkRateElement.className = 'shrink-rate';
+        return;
+    }
+    
+    const shrinkRate = Math.floor(100 * abridgedText.length / originalText.length);
+    shrinkRateElement.textContent = `現在の縮約率: ${shrinkRate}%`;
+    
+    // Add visual feedback based on shrink rate
+    if (shrinkRate > 80) {
+        shrinkRateElement.className = 'shrink-rate warning';
+    } else if (shrinkRate < 50) {
+        shrinkRateElement.className = 'shrink-rate success';
+    } else {
+        shrinkRateElement.className = 'shrink-rate';
+    }
+}
+
+// Add real-time update listeners
+document.getElementById('original').addEventListener('input', updateShrinkRate);
+document.getElementById('abridged').addEventListener('input', updateShrinkRate);
+
+// Initialize shrink rate on page load
+updateShrinkRate();
