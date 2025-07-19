@@ -98,7 +98,6 @@ document.getElementById('judge-button').addEventListener('click', () => {
     }
 });
 
-// Real-time shrink rate calculation
 function updateShrinkRate() {
     const originalText = document.getElementById('original').value;
     const abridgedText = document.getElementById('abridged').value;
@@ -112,8 +111,7 @@ function updateShrinkRate() {
     
     const shrinkRate = Math.floor(100 * abridgedText.length / originalText.length);
     shrinkRateElement.textContent = `現在の縮約率: ${shrinkRate}%`;
-    
-    // Add visual feedback based on shrink rate
+
     if (shrinkRate > 80) {
         shrinkRateElement.className = 'shrink-rate warning';
     } else if (shrinkRate < 50) {
@@ -123,9 +121,7 @@ function updateShrinkRate() {
     }
 }
 
-// Add real-time update listeners
 document.getElementById('original').addEventListener('input', updateShrinkRate);
 document.getElementById('abridged').addEventListener('input', updateShrinkRate);
 
-// Initialize shrink rate on page load
 updateShrinkRate();
